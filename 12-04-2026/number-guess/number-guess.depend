@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1776176803 source:c:\users\user\desktop\cpp\number-guess\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+
