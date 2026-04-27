@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include <fstream>
+#include <cctype>
 using namespace std;
 
 struct Student{
@@ -70,16 +71,66 @@ void sort_by_percent(Student students[],int st_count){
         }
     }
 }
+void save_to_file(Student students[],int st_count){
+    ofstream myfile("students.txt");
+    for(int i=0;i<st_count;i++){
+        myfile <<students[i].name << ","
+               <<students[i].total<< ","
+               <<students[i].grade<< ","
+               <<students[i].percentage <<".\n";
 
+    }
+    cout <<"Files Saved Successfully" <<endl;
+    myfile.close();
+
+}
+void search_by_name(Student students[],int st_count){
+    string target;
+    cout <<"Enter the name of Sutudent:"<<endl;
+    cin>>target;
+    bool found =false;
+
+    for(int i=0;i<st_count;i++){
+        string name=students[i].name;
+        string tempTarget=target;
+
+        for(char &c:tempTarget){
+            c=tolower(c);
+            }
+
+        for(char &c:name){
+            c=tolower(c);
+        }
+
+        if(name==tempTarget){
+            cout <<"Student Found !"<<endl;
+            cout <<students[i].name << ","
+                 <<students[i].total<< ","
+                 <<students[i].percentage<<","
+                 <<students[i].grade<<" .\n";
+            found=true;
+        }
+
+    }
+    if(found==false){
+        cout << "Student not Found" <<endl;
+    }
+
+}
+void delete_student(Student students[],int st_count){
+
+}
 int main()
 {
     cout << "Grade Manager" << endl;
     int user_input=0;
     bool running=true;
 
-    cout << "1.Enter Students:"<<endl;
-    cout << "2.Show Students:"<<endl;
-    cout << "3.Exit" <<endl;
+    cout << "1.Enter Students"<<endl;
+    cout << "2.Show Students"<<endl;
+    cout << "3.Save To Files"<<endl;
+    cout << "4.Search By Name"<<endl;
+    cout << "5.Exit" <<endl;
     Student students[100];
     int st_count=0;
     while(running==true){
@@ -114,9 +165,18 @@ int main()
                  break;
              }
              case 3:
-                 cout << "Okay Bye!" <<endl;
-                 running=false;
-                 break;
+                cout<< "Saving......."<<endl;
+                save_to_file(students,st_count);
+                break;
+
+             case 4:
+                search_by_name(students,st_count);
+                break;
+
+             case 5:
+                cout << "Okay Bye!" <<endl;
+                running=false;
+                break;
                  //input_list(s1);
             }
 
